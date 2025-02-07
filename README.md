@@ -13,4 +13,4 @@ This project is a Django REST API that provides endpoints for managing student i
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/username/repository.git
+   git clone [(https://github.com/SHAKIL003/django_api_course)]
