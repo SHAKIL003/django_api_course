@@ -23,6 +23,6 @@ urlpatterns = [
     path('studentinfo/<int:pk>', views.student_detail),
     path('studentinfo/', views.student_list),
     path('studentcreate/', views.student_create),
-
+    path('studentapi/', views.student_api),
 
 ]
