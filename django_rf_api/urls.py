@@ -16,13 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from api import views
+# from api import views
+from drf_api import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('studentinfo/<int:pk>', views.student_detail),
-    path('studentinfo/', views.student_list),
-    path('studentcreate/', views.student_create),
-    path('studentapi/', views.student_api),
+    # path('admin/', admin.site.urls),
+    # path('studentinfo/<int:pk>', views.student_detail),
+    # path('studentinfo/', views.student_list),
+    # path('studentcreate/', views.student_create),
+    # path('studentapi/', views.student_api),
+    path('drfapi/', views.home),
 
 ]

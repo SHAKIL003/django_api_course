@@ -33,7 +33,7 @@ import json
 # print(data)
 
 ## CRUD
-URL = "http://127.0.0.1:8000/studentapi/"
+URL = "http://127.0.0.1:8000/drfapi/"
 def get_data(id=None):
     data = {}
     if id is not None:
@@ -43,25 +43,27 @@ def get_data(id=None):
     data = r.json()
     print(data)
 
-# get_data(2)
+# get_data()
 
 def post_data():
     data = {
-    'name':'Ayaz Khan',
-    'roll':107,
-    'city':'Lahore'
+    'name':'Sayyed Khan Bacha',
+    'roll':139,
+    'city':'bangladesh'
     }
+    headers = {'content-Type':'application/json'}
     json_data = json.dumps(data)
-    r = requests.post(url=URL, data=json_data)
+    r = requests.post(url=URL, headers=headers,data=json_data)
     data = r.json()
     print(data)
-# post_data()
+post_data()
 
 def update_data():
     data = {
-    'id': 2,
-    'name':'Ayaz Khan Developer',
-    'city':'Swat Mingora'
+    'id': 14,
+    'name': 'Major Sayyed Ikram Ullah Khan',
+    'roll' : 132,
+    'city':'Lahore'
     }
     json_data = json.dumps(data)
     r = requests.put(url=URL, data=json_data)
@@ -70,11 +72,11 @@ def update_data():
 # update_data()
 
 def delete_data():
-    data = {'id': 9}
+    data = {'id': 16}
 
     json_data = json.dumps(data)
     r = requests.delete(url=URL, data=json_data)
     data = r.json()
     print(data)
 
-delete_data()
+# delete_data()
