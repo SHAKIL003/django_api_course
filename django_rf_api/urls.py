@@ -20,11 +20,17 @@ from django.urls import path, include
 from drf_api import views
 
 urlpatterns = [
-    # path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls),
     # path('studentinfo/<int:pk>', views.student_detail),
     # path('studentinfo/', views.student_list),
     # path('studentcreate/', views.student_create),
     # path('studentapi/', views.student_api),
-    path('drfapi/', views.home),
+
+    # path('drfapi/', views.student_api),           # this is function based api views
+    # path('drfapi/<int:pk>', views.student_api),   # this is function based api views
+
+    path('drfapi/', views.StudentAPI.as_view()),            # this is Class based api views
+    path('drfapi/<int:pk>', views.StudentAPI.as_view()),    # this is Class based api views
+
 
 ]
