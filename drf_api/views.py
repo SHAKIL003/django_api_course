@@ -1,10 +1,83 @@
-from django.shortcuts import render
-from rest_framework.response import Response
-# from rest_framework.decorators import api_view
-from rest_framework.views import APIView
 from .models import Student
 from .serializers import StudentSerializer
-from rest_framework import status
+from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView, ListCreateAPIView, RetrieveUpdateDestroyAPIView
+
+
+# this is now more updated Views , called Concrete Views which extends from GenericAPIView and Mixins
+class StudentList(ListAPIView):
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
+
+class StudentCreate(CreateAPIView):
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
+
+class StudentRetrieve(RetrieveAPIView):
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
+
+class StudentUpdate(UpdateAPIView):
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
+
+class StudentDestroy(DestroyAPIView):
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
+
+class StudentListCreate(ListCreateAPIView):   # Merged Two Views
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
+
+class StudentRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):   # Merged Three Views
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
+
+### GenericAPIView and Model Mixin
+# from .models import Student
+# from .serializers import StudentSerializer
+# from rest_framework.generics import GenericAPIView
+# from rest_framework.mixins import ListModelMixin, CreateModelMixin, RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin
+
+# ### As we have created individual classess and its realted URL,
+# ### so to minimize its URLs we can also Group these classes on the bases of pk,
+
+# ### List and Create -- Pk not Required , will be grouped together
+# class LCStudentAPI(GenericAPIView, ListModelMixin, CreateModelMixin) :
+#     queryset = Student.objects.all()
+#     serializer_class = StudentSerializer
+
+#     def get(self, request, *args, ** kwargs):
+#         return self.list(request, *args, ** kwargs)
+#     def post(self, request, *args, ** kwargs):
+#         return self.create(request, *args, ** kwargs)
+    
+# # class StudentCreate(GenericAPIView, CreateModelMixin) :  # this is merged with the above one
+# #     queryset = Student.objects.all()
+# #     serializer_class = StudentSerializer
+# #     def post(self, request, *args, ** kwargs):
+# #         return self.create(request, *args, ** kwargs)
+
+# ### Retrieve - Update - Destroy --- Pk Required,  so merged with each other
+# class RUDStudentAPI(GenericAPIView, RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin) :
+#     queryset = Student.objects.all()
+#     serializer_class = StudentSerializer
+
+#     def get(self, request, *args, ** kwargs):
+#         return self.retrieve(request, *args, ** kwargs)
+    
+#     def put(self, request, *args, ** kwargs):
+#         return self.update(request, *args, ** kwargs)
+
+#     def delete(self, request, *args, ** kwargs):
+#         return self.destroy(request, *args, ** kwargs)
+
+# from django.shortcuts import render
+# from rest_framework.response import Response
+# # from rest_framework.decorators import api_view
+# from rest_framework.views import APIView
+# from .models import Student
+# from .serializers import StudentSerializer
+# from rest_framework import status
 
 # Create your views here.
 # @api_view()
@@ -32,47 +105,47 @@ from rest_framework import status
 
 ### These are Class Based API Views ###
 
-class StudentAPI(APIView):
-    def get(self,request, pk= None,formate = None):
-        id = pk
-        if id is not None:
-            stu = Student.objects.get(id=id)
-            serializer = StudentSerializer(stu)
-            return Response(serializer.data)
-        stu = Student.objects.all()
-        serializer = StudentSerializer(stu, many=True)
-        return Response(serializer.data)
+# class StudentAPI(APIView):
+#     def get(self,request, pk= None,formate = None):
+#         id = pk
+#         if id is not None:
+#             stu = Student.objects.get(id=id)
+#             serializer = StudentSerializer(stu)
+#             return Response(serializer.data)
+#         stu = Student.objects.all()
+#         serializer = StudentSerializer(stu, many=True)
+#         return Response(serializer.data)
     
-    def post(self,request, formate = None):
-        serializer = StudentSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response({'msg':'Data Created Successfully'}, status= status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+#     def post(self,request, formate = None):
+#         serializer = StudentSerializer(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response({'msg':'Data Created Successfully'}, status= status.HTTP_201_CREATED)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-    def put(self,request, pk= None,formate = None):
-        id = pk
-        stu = Student.objects.get(pk=id)
-        serializer = StudentSerializer(stu, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response({'msg':'Complete Data Updated Successfully' })
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+#     def put(self,request, pk= None,formate = None):
+#         id = pk
+#         stu = Student.objects.get(pk=id)
+#         serializer = StudentSerializer(stu, data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response({'msg':'Complete Data Updated Successfully' })
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-    def patch(self,request, pk= None,formate = None):
-        id = pk
-        stu = Student.objects.get(pk=id)
-        serializer = StudentSerializer(stu, data=request.data, partial=True)
-        if serializer.is_valid():
-            serializer.save()
-            return Response({'msg':'Partial Data Updated Successfully' })
-        return Response(serializer.errors)
+#     def patch(self,request, pk= None,formate = None):
+#         id = pk
+#         stu = Student.objects.get(pk=id)
+#         serializer = StudentSerializer(stu, data=request.data, partial=True)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response({'msg':'Partial Data Updated Successfully' })
+#         return Response(serializer.errors)
     
-    def delete(self,request, pk= None,formate = None):
-        id = pk
-        stu = Student.objects.get(pk=id)
-        stu.delete()
-        return Response({'msg': 'Data Deleted Successfully' })
+#     def delete(self,request, pk= None,formate = None):
+#         id = pk
+#         stu = Student.objects.get(pk=id)
+#         stu.delete()
+#         return Response({'msg': 'Data Deleted Successfully' })
 
 ### These are Functions based API Views ###
 
