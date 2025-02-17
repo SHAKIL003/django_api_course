@@ -1,36 +1,106 @@
+### Model ViewSets
+## And Below are Model Viewsets , too simple to implement, its url and Viewsets url are same only class name should be sepecified.
 from .models import Student
 from .serializers import StudentSerializer
-from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView, ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework import viewsets
 
-
-# this is now more updated Views , called Concrete Views which extends from GenericAPIView and Mixins
-class StudentList(ListAPIView):
+class StudentModelViewSet(viewsets.ModelViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
 
-class StudentCreate(CreateAPIView):
-    queryset = Student.objects.all()
-    serializer_class = StudentSerializer
+### there is also another viewset called ReadOnlyModelViewSet, through which only data can viewed.
 
-class StudentRetrieve(RetrieveAPIView):
-    queryset = Student.objects.all()
-    serializer_class = StudentSerializer
+### ViewSets
+## Below are code for Viewsets for each CRUD Operations
+# from django.shortcuts import render
+# from rest_framework.response import Response
+# from .models import Student
+# from .serializers import StudentSerializer
+# from rest_framework import status
+# from rest_framework import viewsets
 
-class StudentUpdate(UpdateAPIView):
-    queryset = Student.objects.all()
-    serializer_class = StudentSerializer
+# class StudentViewSet(viewsets.ViewSet):
+#     def list(self, request):
+#         print("**********List**********")
+#         print("Basename:", self.basename)
+#         print("Action:", self.action)
+#         print("Detail:", self.detail)
+#         print("Suffix:", self.suffix)
+#         print("Name:", self.name)
+#         print("Description:", self.description)
+#         stu = Student. objects. all()
+#         serializer = StudentSerializer(stu, many=True)
+#         return Response(serializer.data)
+#     def retrieve(self, request, pk=None):
+#         id = pk
+#         if id is not None:
+#             stu = Student.objects.get(id=id)
+#             serializer = StudentSerializer(stu)
+#             return Response(serializer.data)
+#     def create(self, request):
+#         serializer = StudentSerializer(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response({'msg':'Data Created'}, status=status.
+#             HTTP_201_CREATED)
+#         return Response(serializer.errors, status=status.
+#         HTTP_400_BAD_REQUEST)
+#     def update(self,request, pk):
+#         id = pk
+#         stu = Student.objects.get(pk=id)
+#         serializer = StudentSerializer(stu, data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response({'msg':'Complete Data Updated'})
+#         return Response(serializer.errors, status=status.
+#         HTTP_400_BAD_REQUEST)
+#     def partial_update(self,request, pk):
+#         id =pk
+#         stu = Student.objects.get(pk=id)
+#         serializer = StudentSerializer(stu, data=request.data,
+#         partial=True)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response({'msg':'Partial Data Updated'})
+#         return Response(serializer.errors)
+#     def destroy(self,request, pk):
+#         id = pk
+#         stu = Student.objects.get(pk=id)
+#         stu.delete()
+#         return Response({'msg':'Data Deleted'})
 
-class StudentDestroy(DestroyAPIView):
-    queryset = Student.objects.all()
-    serializer_class = StudentSerializer
+### This is now more updated Views , called Concrete Views which extends from GenericAPIView and Mixins
+# from .models import Student
+# from .serializers import StudentSerializer
+# from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView, ListCreateAPIView, RetrieveUpdateDestroyAPIView
 
-class StudentListCreate(ListCreateAPIView):   # Merged Two Views
-    queryset = Student.objects.all()
-    serializer_class = StudentSerializer
+# class StudentList(ListAPIView):
+#     queryset = Student.objects.all()
+#     serializer_class = StudentSerializer
 
-class StudentRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):   # Merged Three Views
-    queryset = Student.objects.all()
-    serializer_class = StudentSerializer
+# class StudentCreate(CreateAPIView):
+#     queryset = Student.objects.all()
+#     serializer_class = StudentSerializer
+
+# class StudentRetrieve(RetrieveAPIView):
+#     queryset = Student.objects.all()
+#     serializer_class = StudentSerializer
+
+# class StudentUpdate(UpdateAPIView):
+#     queryset = Student.objects.all()
+#     serializer_class = StudentSerializer
+
+# class StudentDestroy(DestroyAPIView):
+#     queryset = Student.objects.all()
+#     serializer_class = StudentSerializer
+
+# class StudentListCreate(ListCreateAPIView):   # Merged Two Views
+#     queryset = Student.objects.all()
+#     serializer_class = StudentSerializer
+
+# class StudentRetrieveUpdateDestroy(RetrieveUpdateDestroyAPIView):   # Merged Three Views
+#     queryset = Student.objects.all()
+#     serializer_class = StudentSerializer
 
 ### GenericAPIView and Model Mixin
 # from .models import Student

@@ -18,9 +18,20 @@ from django.contrib import admin
 from django.urls import path, include
 # from api import views
 from drf_api import views
+from rest_framework.routers import DefaultRouter   # used with viewset Class
+
+# Creating Router Object
+router = DefaultRouter()
+
+# Register StudentViewSet with Router
+# router.register('studentapi', views.StudentViewSet, basename='student' )  # this one is for simpple Viewset
+
+router.register('studentapi', views.StudentModelViewSet, basename='student' ) # this is for Model Viewset
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include(router.urls)),   # this Url path is for Viewset Class api and Model Viewset
+
     # path('studentinfo/<int:pk>', views.student_detail),
     # path('studentinfo/', views.student_list),
     # path('studentcreate/', views.student_create),
@@ -43,8 +54,10 @@ urlpatterns = [
     # path('drfapi/<int:pk>', views.StudentUpdate.as_view()),
     # path('drfapi/', views.StudentCreate.as_view()),
     # path('drfapi/<int:pk>', views.StudentDestroy.as_view()),
-    path('drfapi/', views.StudentListCreate.as_view()),            # this is Concrete View Class,Merged List & Create
-    path('drfapi/<int:pk>', views.StudentRetrieveUpdateDestroy.as_view()),
+    
+    # path('drfapi/', views.StudentListCreate.as_view()),            # this is Concrete View Class,Merged List & Create
+    # path('drfapi/<int:pk>', views.StudentRetrieveUpdateDestroy.as_view()),
+
 
 
 
