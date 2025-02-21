@@ -17,7 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 # from api import views
-from drf_api import views
+# from drf_api import views
+from auth_jwt import views
 from rest_framework.routers import DefaultRouter   # used with viewset Class
 
 # Creating Router Object
@@ -31,6 +32,7 @@ router.register('studentapi', views.StudentModelViewSet, basename='student' ) # 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),   # this Url path is for Viewset Class api and Model Viewset
+    path('auth/', include('rest_framework.urls', namespace='rest_framework'))
 
     # path('studentinfo/<int:pk>', views.student_detail),
     # path('studentinfo/', views.student_list),

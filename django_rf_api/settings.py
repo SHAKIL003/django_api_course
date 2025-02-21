@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     
     'api',
     'rest_framework',
-    'drf_api',
+    # 'drf_api',
+    'auth_jwt',
 ]
 
 MIDDLEWARE = [
@@ -125,3 +126,12 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# To Impose Authentication and Permissions Globally we can do it here , like below
+# Global Settings for Rest Framework, All views will be affected
+# Global Settings can be override be Local Authentications and permissions
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES' : ['rest_framework.authentication.BasicAuthentication'],
+#     'DEFAULT_PERMISSION_CLASSES' : ['rest_framework.permissions.IsAuthenticated']
+# }

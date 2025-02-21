@@ -1,12 +1,13 @@
 ### Model ViewSets
 ## And Below are Model Viewsets , too simple to implement, its url and Viewsets url are same only class name should be sepecified.
-from .models import Student
-from .serializers import StudentSerializer
-from rest_framework import viewsets
 
-class StudentModelViewSet(viewsets.ModelViewSet):
-    queryset = Student.objects.all()
-    serializer_class = StudentSerializer
+# from .models import Student
+# from .serializers import StudentSerializer
+# from rest_framework import viewsets
+
+# class StudentModelViewSet(viewsets.ModelViewSet):
+#     queryset = Student.objects.all()
+#     serializer_class = StudentSerializer
 
 ### there is also another viewset called ReadOnlyModelViewSet, through which only data can viewed.
 
